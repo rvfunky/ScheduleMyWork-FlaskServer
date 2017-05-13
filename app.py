@@ -5,6 +5,10 @@ from flask_jwt import JWT, jwt_required
 
 from security import authenticate, identity
 from resources.user import UserRegister
+from resources.preference import Preference
+from resources.trade import Trade
+from resources.trades import Trades
+from resources.schedule import Schedule
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://raghu:schedulemywork@schedulemywork.cm8uunfgwrxe.us-west-2.rds.amazonaws.com:3306/schedulemywork'
@@ -23,8 +27,12 @@ class Test(Resource):
 	def post(self):
 		return {"message":"hello world"}, 200
 
+api.add_resource(Preference,'/preference')
 api.add_resource(UserRegister,'/register')
 api.add_resource(Test, '/test')
+api.add_resource(Trade, '/trade/<string:purpose>')
+api.add_resource(Trades,'/trades/<string:purpose>')
+api.add_resource(Schedule,'/schedule')
 
 if __name__ == '__main__':
 	from db import db
