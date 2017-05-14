@@ -9,6 +9,7 @@ from resources.preference import Preference
 from resources.trade import Trade
 from resources.trades import Trades
 from resources.schedule import Schedule
+from resources.shifts import Shifts
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://raghu:schedulemywork@schedulemywork.cm8uunfgwrxe.us-west-2.rds.amazonaws.com:3306/schedulemywork'
@@ -33,6 +34,7 @@ api.add_resource(Test, '/test')
 api.add_resource(Trade, '/trade/<string:purpose>')
 api.add_resource(Trades,'/trades/<string:purpose>')
 api.add_resource(Schedule,'/schedule')
+api.add_resource(Shifts, '/shifts')
 
 if __name__ == '__main__':
 	from db import db
