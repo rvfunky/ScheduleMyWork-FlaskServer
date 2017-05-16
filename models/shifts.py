@@ -45,6 +45,11 @@ class ShiftsModel(db.Model):
         shifts = cls.query.all()
         shiftsInJson = {'shifts':[shift.serialize() for shift in shifts]}
         return shiftsInJson
+
+    @classmethod
+    def remove_shift_after_trade(cls,username,startTime,endTime,day):
+        cls.query.filter_by(userName=username,startTime=startTime,endTime=endTime,day=day).delete()
+        db.session.commit()
     
     def serialize(self):
         return {

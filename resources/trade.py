@@ -1,6 +1,7 @@
 from flask_restful import Resource
 from models.user import UserModel
 from models.trade import TradeModel
+from models.shifts import ShiftsModel
 from flask import request
 from flask_jwt import JWT, jwt_required, current_identity
 
@@ -14,6 +15,8 @@ class Trade(Resource):
 			print("offer received"+data['startTime'])
 			trade = TradeModel(current_identity,None,data['startTime'],data['endTime'],data['day'])
 			trade.save_to_db()
+			ShiftsModel.remove_shift_after_trade(current_identity.username,data['startTime'],data['endTime'],data['day'])
+
 		if(purpose=="accept"):
 			print("accept received"+data['offeredUserName']);
 			#offeredUser = UserModel.find_by_username(data['offeredUserName'])
