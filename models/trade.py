@@ -52,6 +52,14 @@ class TradeModel(db.Model):
             tradesinjson = {'trades':[trade.serialize() for trade in trades]}
             print(tradesinjson)
             return tradesinjson
+        if(purpose=="open"):
+            trades = cls.query.filter_by(acceptedUserName=None).all()
+            tradesinjson = {'trades':[trade.serialize() for trade in trades]}
+            print(tradesinjson)
+            return tradesinjson
+
+
+        
     
     def serialize(self):
         return {
