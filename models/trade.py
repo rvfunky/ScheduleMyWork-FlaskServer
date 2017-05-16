@@ -31,8 +31,8 @@ class TradeModel(db.Model):
 
     @classmethod
     def updateRecord(cls, offeredUserName, acceptedUser, startTime, endTime, day):
-        trade = cls.query.filter_by(offeredUserName=offeredUserName).first()
-        print("printing trade"+trade.offeredUser.username)
+        trade = cls.query.filter_by(offeredUserName=offeredUserName,startTime=startTime,endTime=endTime,day=day).first()
+        #print("printing trade"+trade.offeredUser.username)
         trade.acceptedUser = acceptedUser
         db.session.add(trade)
         db.session.commit()

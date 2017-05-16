@@ -50,6 +50,11 @@ class ShiftsModel(db.Model):
     def remove_shift_after_trade(cls,username,startTime,endTime,day):
         cls.query.filter_by(userName=username,startTime=startTime,endTime=endTime,day=day).delete()
         db.session.commit()
+
+    @classmethod
+    def add_shift_after_trade(cls,username,startTime,endTime,day):
+        shift = ShiftsModel(username,day,startTime,endTime)
+        shift.save_to_db()
     
     def serialize(self):
         return {
