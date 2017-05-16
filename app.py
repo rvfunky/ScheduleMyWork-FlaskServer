@@ -34,7 +34,7 @@ api.add_resource(Test, '/test')
 api.add_resource(Trade, '/trade/<string:purpose>')
 api.add_resource(Trades,'/trades/<string:purpose>')
 api.add_resource(Schedule,'/schedule')
-api.add_resource(Shifts, '/shifts')
+api.add_resource(Shifts, '/shifts/<string:filter>')
 
 if __name__ == '__main__':
 	from db import db

@@ -12,23 +12,25 @@ class TradeModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     offeredUserName = db.Column(db.String(80), db.ForeignKey('user.username'))
     acceptedUserName = db.Column(db.String(80), db.ForeignKey('user.username'))
-    startTime = db.Column(db.DateTime)
-    endTime = db.Column(db.DateTime)
+    startTime = db.Column(db.String(10))
+    endTime = db.Column(db.String(10))
+    day = db.Column(db.String(10))
     offeredUser = db.relationship('UserModel', foreign_keys=[offeredUserName], backref=db.backref('offeredTrade'))
     acceptedUser = db.relationship('UserModel', foreign_keys=[acceptedUserName], backref=db.backref('acceptedTrade'))
 
-    def __init__(self, offeredUser, acceptedUser, startTime, endTime):
+    def __init__(self, offeredUser, acceptedUser, startTime, endTime, day):
         self.offeredUser = offeredUser
         self.acceptedUser = acceptedUser
         self.startTime = startTime
         self.endTime = endTime
+        self.day = day
 
     def save_to_db(self):
         db.session.add(self)
         db.session.commit()
 
     @classmethod
-    def updateRecord(cls, offeredUserName, acceptedUser, startTime, endTime):
+    def updateRecord(cls, offeredUserName, acceptedUser, startTime, endTime, day):
         trade = cls.query.filter_by(offeredUserName=offeredUserName).first()
         print("printing trade"+trade.offeredUser.username)
         trade.acceptedUser = acceptedUser
@@ -55,6 +57,7 @@ class TradeModel(db.Model):
         return {
             'offeredUserName':self.offeredUserName,
             'acceptedUserName':self.acceptedUserName,
-            'startTime':self.startTime.isoformat(),
-            'endTime':self.endTime.isoformat()
+            'startTime':self.startTime,
+            'endTime':self.endTime,
+            'day' : self.day
         }

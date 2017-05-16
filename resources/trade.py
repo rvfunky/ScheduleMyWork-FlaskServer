@@ -12,12 +12,12 @@ class Trade(Resource):
 		print("data received")
 		if(purpose=="offer"):
 			print("offer received"+data['startTime'])
-			trade = TradeModel(current_identity,None,data['startTime'],data['endTime'])
+			trade = TradeModel(current_identity,None,data['startTime'],data['endTime'],data['day'])
 			trade.save_to_db()
 		if(purpose=="accept"):
 			print("accept received"+data['offeredUserName']);
 			#offeredUser = UserModel.find_by_username(data['offeredUserName'])
-			TradeModel.updateRecord(data['offeredUserName'],current_identity,data['startTime'],data['endTime'])	
+			TradeModel.updateRecord(data['offeredUserName'],current_identity,data['startTime'],data['endTime'],data['day'])	
 		return {"data received": data}, 201
 
 	def get(self):
