@@ -15,7 +15,7 @@ class ShiftsModel(db.Model):
     user = db.relationship('UserModel', backref=db.backref('shifts'))
 
     def __init__(self, username, day, startTime, endTime):
-        self.username = username
+        self.userName = username
         self.day = day
         self.startTime = startTime
         self.endTime = endTime
