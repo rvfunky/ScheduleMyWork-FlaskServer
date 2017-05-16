@@ -16,13 +16,16 @@ class Trade(Resource):
 			trade = TradeModel(current_identity,None,data['startTime'],data['endTime'],data['day'])
 			trade.save_to_db()
 			ShiftsModel.remove_shift_after_trade(current_identity.username,data['startTime'],data['endTime'],data['day'])
+			return {"data received": data}, 201
 
 		if(purpose=="accept"):
 			print("accept received"+data['offeredUserName']);
 			#offeredUser = UserModel.find_by_username(data['offeredUserName'])
-			TradeModel.updateRecord(data['offeredUserName'],current_identity,data['startTime'],data['endTime'],data['day'])	
+			TradeModel.updateRecord(data['offeredUserName'],current_identity.username,data['startTime'],data['endTime'],data['day'])	
 			ShiftsModel.add_shift_after_trade(current_identity.username,data['startTime'],data['endTime'],data['day'])
-		return {"data received": data}, 201
+			return {"data received": data}, 201
 
-	def get(self):
+
+
+	def get(self,purpose):
 		return{"message": "hello world"}, 200
