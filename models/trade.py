@@ -62,10 +62,19 @@ class TradeModel(db.Model):
         
     
     def serialize(self):
-        return {
-            'offeredUserName':self.offeredUserName,
-            'acceptedUserName':self.acceptedUserName,
-            'startTime':self.startTime,
-            'endTime':self.endTime,
-            'day' : self.day
-        }
+        if(self.acceptedUserName is None):
+            return{
+                'offeredUserName':self.offeredUserName,
+                'acceptedUserName':"",
+                'startTime':self.startTime,
+                'endTime':self.endTime,
+                'day' : self.day
+            }
+        else:
+            return {
+                'offeredUserName':self.offeredUserName,
+                'acceptedUserName':self.acceptedUserName,
+                'startTime':self.startTime,
+                'endTime':self.endTime,
+                'day' : self.day
+            }
